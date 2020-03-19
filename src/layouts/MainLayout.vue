@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import EssentialLink from "components/EssentialLink";
 
 export default {
   name: "MainLayout",
