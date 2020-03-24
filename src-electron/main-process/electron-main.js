@@ -1,4 +1,5 @@
-import { app, BrowserWindow, nativeTheme } from 'electron'
+import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron'
+import { getAllEncryptedPasswords } from './IBM_VPC'
 
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
@@ -16,12 +17,12 @@ if (process.env.PROD) {
 
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    width: 1000,
+    width: 1200,
     height: 600,
     useContentSize: true,
     webPreferences: {
@@ -32,7 +33,10 @@ function createWindow () {
       // More info: /quasar-cli/developing-electron-apps/electron-preload-script
       // preload: path.resolve(__dirname, 'electron-preload.js')
     }
+
   })
+
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL(process.env.APP_URL)
 
@@ -40,6 +44,11 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+ipcMain.on('get_cloud_server_list', async (e, args) => {
+  var windows_server_list = await getAllEncryptedPasswords(args)
+  e.sender.send('receive_cloud_server_list', windows_server_list);
+})
 
 app.on('ready', createWindow)
 
@@ -54,3 +63,5 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
