@@ -77,6 +77,14 @@
         </q-card-section>
 
         <q-card-actions align="right">
+          <q-toggle
+            class="q-pr-md"
+            v-model="save_api_key"
+            checked-icon="check"
+            color="green"
+            unchecked-icon="clear"
+            label="Save API Key"
+          />
           <q-btn
             size="sm"
             color="primary"
@@ -203,7 +211,8 @@ export default {
       api_key: "",
       server_selected: "",
       api_key_error_message: "",
-      decrypt_error: false
+      decrypt_error: false,
+      save_api_key: false
     };
   },
   computed: {
@@ -231,6 +240,20 @@ export default {
             "Invalid API Key or Unable to connect to API";
         }
       });
+      try {
+        console.log("Checking on the config file");
+        if (fs.existsSync("config.json")) {
+          let rawData = fs.readFileSync("config.json");
+          let configData = JSON.parse(rawData);
+          this.api_key = configData["api_key"] || "";
+          if (this.api_key != "") {
+            this.load_servers_from_cloud();
+          }
+        }
+      } catch (e) {
+        console.log(e);
+        return;
+      }
     });
   },
   methods: {
@@ -298,11 +321,24 @@ export default {
       this.cloud_servers_loaded = false;
       this.server_selected = "";
 
+      // check to see if we are saving the API key
+      if (this.save_api_key) {
+        this.write_config_file();
+      }
+
       // Send the API key to the main process
       ipcRenderer.send("get_cloud_server_list", this.api_key);
     },
     copy_password() {
       clipboard.writeText(this.decrypted_text, "selection");
+    },
+    write_config_file() {
+      let config_file = {
+        api_key: this.api_key
+      };
+
+      let data = JSON.stringify(config_file);
+      fs.writeFileSync("config.json", data);
     }
   }
 };

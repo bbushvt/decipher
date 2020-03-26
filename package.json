@@ -1,9 +1,9 @@
 {
-  "name": "public_key_message_decrypt",
-  "version": "0.0.1",
+  "name": "Decipher",
+  "version": "1.0.0",
   "description": "Uses your private key to decrypt a message encrypted with your public key",
-  "productName": "Public Key Message Decrypt",
-  "cordovaId": "org.bcbush.public_key_message_decrypt.app",
+  "productName": "Decipher",
+  "cordovaId": "org.bcbush.decipher.app",
   "capacitorId": "",
   "author": "Bryan Bush <bbushvt@gmail.com>",
   "private": true,
@@ -12,8 +12,11 @@
     "build": "quasar build -m electron",
     "build-linux": "quasar build -m electron linux",
     "build-win32": "quasar build -m electron win32",
+    "release": "quasar build -m electron --publish onTagOrDraft",
     "test": "echo \"No test specified\" && exit 0"
   },
+  "repository": "https://github.com/bbushvt/decipher",
+  "homepage": "https://github.com/bbushvt/decipher",
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.19.2",
@@ -23,6 +26,7 @@
     "@quasar/app": "^1.0.0",
     "devtron": "^1.4.0",
     "electron": "^8.0.1",
+    "electron-builder": "^21.0.0",
     "electron-debug": "^3.0.1",
     "electron-devtools-installer": "^2.2.4",
     "electron-packager": "^14.1.1"
