@@ -166,6 +166,9 @@ module.exports = function (ctx) {
         },
         win: {
           target: ['portable', 'zip']
+        },
+        mac: {
+          target: ['dmg']
         }
       },
 
