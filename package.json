@@ -1,6 +1,6 @@
 {
   "name": "Decipher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Uses your private key to decrypt a message encrypted with your public key",
   "productName": "Decipher",
   "cordovaId": "org.bcbush.decipher.app",
