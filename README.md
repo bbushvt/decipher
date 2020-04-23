@@ -1,8 +1,14 @@
-# Public Key Message Decrypt (public_key_message_decrypt)
+# Decipher
 
-Uses your private key to decrypt a message encrypted with your public key
+Uses your private key to decrypt a message that was encrypted using your public key
 
-## Install the dependencies
+## Binaries
+
+The latest binaries can be found here: https://github.com/bbushvt/decipher/releases
+
+## Build process
+
+### Install the dependencies
 ```bash
 yarn
 ```
@@ -18,5 +24,3 @@ quasar dev
 quasar build
 ```
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

@@ -97,7 +97,7 @@
       </q-card>
     </q-dialog>
 
-    <q-page-container class="q-pa-md">
+    <q-page-container class="q-pa-sm">
       <div class="row q-ptx-md">
         <div class="col"></div>
         <div class="col-7">
@@ -114,7 +114,7 @@
         <div class="col"></div>
       </div>
 
-      <div class="row q-pa-md">
+      <div class="row q-pa-sm">
         <div class="col"></div>
         <div class="col-7">
           <q-input v-model="encrypted_text" label="Encrypted Message" outlined type="textarea" />
@@ -122,7 +122,7 @@
         <div class="col"></div>
       </div>
 
-      <div class="row q-pbx-md">
+      <div class="row q-pbx-sm">
         <div class="col"></div>
         <div class="col-7">
           <div class="q-pa-md q-gutter-sm">
@@ -146,10 +146,22 @@
         <div class="col"></div>
       </div>
 
-      <div class="row q-pa-md">
+      <div class="row">
         <div class="col"></div>
         <div class="col-7">
           <q-input v-model="private_key_text" label="Private Key" outlined type="textarea" />
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="row q-pa-sm">
+        <div class="col"></div>
+        <div class="col-7">
+          <q-input
+            v-model="private_key_password"
+            label="Private Key Password (if needed)"
+            outlined
+            type="password"
+          />
         </div>
         <div class="col"></div>
       </div>
@@ -202,6 +214,7 @@ export default {
     return {
       encrypted_text: "",
       private_key_text: "",
+      private_key_password: "",
       decrypted_text: "",
       left: false,
       cloud_integration_enabled: false,
@@ -276,7 +289,7 @@ export default {
         var password = crypto.privateDecrypt(
           {
             key: this.private_key_text.toString(),
-            passphrase: "",
+            passphrase: this.private_key_password.toString(),
             padding: crypto.constants.RSA_PKCS1_PADDING
           },
           buf
